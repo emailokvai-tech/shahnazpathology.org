@@ -38,6 +38,21 @@ function App() {
             </ReactMarkdown>
           </div>
         </section>
+
+        <section className="markdown-section" id="about">
+          <div className="markdown-container">
+            <h2>About</h2>
+            <p>Shahnaz Pathology is a state-of-the-art diagnostic center focused on delivering high-precision pathology using digital workflows and AI-driven insights.</p>
+          </div>
+        </section>
+
+        <section className="markdown-section" id="contact">
+          <div className="markdown-container">
+            <h2>Contact</h2>
+            <p>Email: contact@shahnazpathology.org</p>
+            <p>Phone: +880 1234 567 890</p>
+          </div>
+        </section>
       </main>
       
       <footer className="app-footer">
