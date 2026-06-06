@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 
 export default function PatientLogin() {
@@ -46,20 +46,25 @@ export default function PatientLogin() {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card">
-        <h2>{isLogin ? 'Patient Portal Login' : 'Register for Portal'}</h2>
-        <p className="login-subtitle">
-          {isLogin 
-            ? 'Access your test results and appointments securely.' 
-            : 'Create an account to manage your healthcare journey.'}
-        </p>
+    <div className="auth-wrapper">
+      <div className="auth-card glass-panel">
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔬</div>
+          <h2 style={{ fontSize: '1.75rem', marginBottom: '0.5rem', color: 'hsl(var(--primary))' }}>
+            {isLogin ? 'Welcome Back' : 'Create Account'}
+          </h2>
+          <p style={{ color: 'hsl(var(--text-secondary))' }}>
+            {isLogin 
+              ? 'Securely access your pathology test results.' 
+              : 'Join the digital patient platform.'}
+          </p>
+        </div>
 
         {error && <div className="error-banner">{error}</div>}
 
-        <form onSubmit={handleAuth} className="login-form">
+        <form onSubmit={handleAuth}>
           {!isLogin && (
-            <>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <div className="form-group">
                 <label>First Name</label>
                 <input 
@@ -78,7 +83,7 @@ export default function PatientLogin() {
                   required 
                 />
               </div>
-            </>
+            </div>
           )}
 
           <div className="form-group">
@@ -101,23 +106,28 @@ export default function PatientLogin() {
             />
           </div>
 
-          <button type="submit" className="primary-btn full-width" disabled={loading}>
+          <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }} disabled={loading}>
             {loading ? 'Processing...' : (isLogin ? 'Sign In' : 'Register')}
           </button>
         </form>
 
-        <div className="login-toggle">
-          <p>
+        <div style={{ textAlign: 'center', marginTop: '1.5rem', borderTop: '1px solid var(--glass-border)', paddingTop: '1.5rem' }}>
+          <p style={{ color: 'hsl(var(--text-secondary))', fontSize: '0.875rem' }}>
             {isLogin ? "Don't have an account? " : "Already have an account? "}
-            <button className="text-btn" onClick={() => setIsLogin(!isLogin)}>
-              {isLogin ? 'Register here' : 'Log in here'}
+            <button 
+              type="button" 
+              style={{ background: 'none', border: 'none', color: 'hsl(var(--primary))', fontWeight: 'bold', cursor: 'pointer' }}
+              onClick={() => setIsLogin(!isLogin)}
+            >
+              {isLogin ? 'Register here' : 'Log in'}
             </button>
           </p>
+          <div style={{ marginTop: '1rem' }}>
+            <Link to="/" style={{ color: 'hsl(var(--text-secondary))', fontSize: '0.875rem', textDecoration: 'underline' }}>
+              &larr; Return to Home
+            </Link>
+          </div>
         </div>
-        
-        <button className="secondary-btn full-width mt-1" onClick={() => navigate('/')}>
-          Return to Home
-        </button>
       </div>
     </div>
   );

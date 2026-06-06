@@ -4,90 +4,79 @@ import remarkGfm from 'remark-gfm';
 import { Link } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-import { blueprintMarkdown } from '../blueprint';
 
 function Home() {
+  const [markdown, setMarkdown] = useState('');
   const [content, setContent] = useState({
-    logo: '🔬',
-    heroText: 'Enterprise Architecture',
-    heroSubtext: 'A modern, secure, and compliant digital pathology platform designed for scale.',
-    contactEmail: 'contact@shahnazpathology.org',
-    contactPhone: '+880 1716-235481'
+    heroTitle: "Digital Pathology Built for Tomorrow",
+    contactInfo: ""
   });
 
   useEffect(() => {
+    fetch('/shahnaz_pathology_blueprint.md')
+      .then((response) => response.text())
+      .then((text) => setMarkdown(text));
+
     const fetchContent = async () => {
       try {
-        const docRef = doc(db, 'content', 'homepage');
+        const docRef = doc(db, 'content', 'home');
         const docSnap = await getDoc(docRef);
-        
         if (docSnap.exists()) {
-          setContent(prev => ({...prev, ...docSnap.data()}));
+          const data = docSnap.data();
+          if (data.heroTitle) setContent(prev => ({ ...prev, heroTitle: data.heroTitle }));
+          if (data.contactInfo) setContent(prev => ({ ...prev, contactInfo: data.contactInfo }));
         }
       } catch (error) {
-        console.error("Error fetching content:", error);
+        console.log("Firebase not configured or content not found. Using defaults.");
       }
     };
-    
     fetchContent();
   }, []);
 
   return (
-    <div className="app-container">
-      <header className="app-header">
-        <div className="header-content">
-          <div className="logo-section">
-            <div className="logo-icon">{content.logo}</div>
-            <h1>Shahnaz Pathology</h1>
-          </div>
-          <nav>
-            <a href="#blueprint" className="active">Architecture Blueprint</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-            <Link to="/patient-login" className="secondary-btn" style={{ marginLeft: '1rem' }}>Patient Portal</Link>
-            <Link to="/admin" className="admin-link">Admin</Link>
-          </nav>
+    <>
+      <header className="header-glass">
+        <div className="logo-brand">
+          <span style={{ fontSize: '1.8rem' }}>🔬</span>
+          Shahnaz Pathology
         </div>
+        <nav className="nav-links">
+          <a href="#blueprint">Blueprint</a>
+          <a href="#about">About</a>
+          {content.contactInfo && (
+            <a href={`tel:${content.contactInfo}`} style={{ fontWeight: 'bold' }}>
+              📞 {content.contactInfo}
+            </a>
+          )}
+          <Link to="/patient-login" className="btn btn-primary">Patient Portal</Link>
+          <Link to="/admin" className="btn btn-secondary">Admin</Link>
+        </nav>
       </header>
-      
-      <main className="main-content">
-        <div className="hero-section">
-          <h2>{content.heroText}</h2>
-          <p>{content.heroSubtext}</p>
-          <div className="hero-actions">
-            <button className="primary-btn">View Documentation</button>
-            <button className="secondary-btn">System Status</button>
-          </div>
+
+      <section className="hero-section">
+        <h1 className="hero-title">{content.heroTitle}</h1>
+        <p className="hero-subtitle">
+          Secure, compliant, and scalable healthcare infrastructure. 
+          Manage lab results and appointments seamlessly.
+        </p>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <Link to="/patient-login" className="btn btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
+            Access Your Results
+          </Link>
+          <a href="#blueprint" className="btn btn-secondary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
+            View Architecture
+          </a>
         </div>
+      </section>
 
-        <section className="markdown-section" id="blueprint">
-          <div className="markdown-container">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {blueprintMarkdown}
-            </ReactMarkdown>
-          </div>
-        </section>
-
-        <section className="markdown-section" id="about">
-          <div className="markdown-container">
-            <h2>About</h2>
-            <p>Shahnaz Pathology is a state-of-the-art diagnostic center focused on delivering high-precision pathology using digital workflows and AI-driven insights.</p>
-          </div>
-        </section>
-
-        <section className="markdown-section" id="contact">
-          <div className="markdown-container">
-            <h2>Contact</h2>
-            <p>Email: {content.contactEmail}</p>
-            <p>Phone: <a href={`tel:${content.contactPhone}`} className="contact-link">{content.contactPhone}</a></p>
-          </div>
-        </section>
-      </main>
+      <section id="blueprint" className="markdown-container glass-panel" style={{ margin: '2rem auto' }}>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdown}</ReactMarkdown>
+      </section>
       
-      <footer className="app-footer">
-        <p>&copy; {new Date().getFullYear()} Shahnaz Pathology. Proprietary & Confidential.</p>
+      <footer style={{ textAlign: 'center', padding: '2rem', color: 'hsl(var(--text-secondary))' }}>
+        &copy; {new Date().getFullYear()} Shahnaz Pathology. All rights reserved.
       </footer>
-    </div>
+    </>
   );
 }
 
