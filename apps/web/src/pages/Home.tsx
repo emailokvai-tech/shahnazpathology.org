@@ -44,6 +44,7 @@ function Home() {
             <a href="#blueprint" className="active">Architecture Blueprint</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
+            <Link to="/patient-login" className="secondary-btn" style={{ marginLeft: '1rem' }}>Patient Portal</Link>
             <Link to="/admin" className="admin-link">Admin</Link>
           </nav>
         </div>
