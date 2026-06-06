@@ -50,7 +50,7 @@ function App() {
           <div className="markdown-container">
             <h2>Contact</h2>
             <p>Email: contact@shahnazpathology.org</p>
-            <p>Phone: +880 1234 567 890</p>
+            <p>Phone: <a href="tel:+8801716235481" className="contact-link">+880 1716-235481</a></p>
           </div>
         </section>
       </main>
