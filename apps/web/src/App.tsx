@@ -4,6 +4,7 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import PatientLogin from './pages/PatientLogin';
 import PatientPortal from './pages/PatientPortal';
+import ClinicalDashboard from './pages/ClinicalDashboard';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import './App.css';
 
@@ -19,6 +20,14 @@ function App() {
         element={
           <ProtectedRoute>
             <PatientPortal />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/clinical-dashboard" 
+        element={
+          <ProtectedRoute>
+            <ClinicalDashboard />
           </ProtectedRoute>
         } 
       />

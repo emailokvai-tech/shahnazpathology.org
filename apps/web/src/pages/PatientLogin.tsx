@@ -20,9 +20,23 @@ export default function PatientLogin() {
 
     try {
       if (isLogin) {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { data: authData, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        navigate('/patient-portal');
+        
+        // Role-based routing
+        if (authData.session) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', authData.user.id)
+            .single();
+            
+          if (profile && (profile.role === 'admin' || profile.role === 'doctor')) {
+            navigate('/clinical-dashboard');
+          } else {
+            navigate('/patient-portal');
+          }
+        }
       } else {
         const { error } = await supabase.auth.signUp({
           email,
