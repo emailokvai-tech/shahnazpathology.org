@@ -48,8 +48,8 @@ function Home() {
               📞 {content.contactInfo}
             </a>
           )}
-          <Link to="/patient-login" className="btn btn-primary">Patient Portal</Link>
-          <Link to="/admin" className="btn btn-secondary">Admin</Link>
+          <Link to="/patient-login" className="btn btn-primary">Login</Link>
+          <Link to="/admin" className="btn btn-secondary">CMS Admin</Link>
         </nav>
       </header>
 
@@ -61,7 +61,7 @@ function Home() {
         </p>
         <div style={{ display: 'flex', gap: '1rem' }}>
           <Link to="/patient-login" className="btn btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
-            Access Your Results
+            Access Portals
           </Link>
           <a href="#blueprint" className="btn btn-secondary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
             View Architecture
