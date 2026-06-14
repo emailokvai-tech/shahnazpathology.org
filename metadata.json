@@ -1,0 +1,8 @@
+{
+  "name": "Dainik Jahan",
+  "description": "A premium news portal replica of The Guardian with Gemini AI-powered news editing, custom image generation, and global RSS breaking news integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
