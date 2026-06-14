@@ -1,8 +1,6 @@
 {
-  "name": "Dainik Jahan",
-  "description": "A premium news portal replica of The Guardian with Gemini AI-powered news editing, custom image generation, and global RSS breaking news integration.",
-  "requestFramePermissions": [],
-  "majorCapabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
+  "name": "shahnazpathology",
+  "description": "Pathology and secure patient portal for shahnazpathology.org with global health news, multi-modal Gemini AI assistant, document upload, complaints filing, and a professional backend verification panel.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
