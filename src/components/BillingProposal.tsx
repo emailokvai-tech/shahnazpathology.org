@@ -468,7 +468,7 @@ export default function BillingProposal({ showToast }: BillingProposalProps) {
           </div>
           <div className="bg-slate-100 p-1 rounded-xl border border-slate-200 flex gap-1">
             <button
-              onClick={() => { setLang(' bn'); setLang('bn'); }}
+              onClick={() => { setLang('bn'); }}
               className={`px-3 py-1 rounded-lg text-[11px] font-extrabold cursor-pointer transition ${lang === 'bn' ? 'bg-white text-red-650 shadow-xs' : 'text-slate-500 hover:text-slate-900'}`}
             >
               Bengali Only
